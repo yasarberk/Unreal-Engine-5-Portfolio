@@ -5,6 +5,7 @@
 #include "MyProject/DebugMacros.h"
 #include "Components/SphereComponent.h"
 #include "MyCharacter.h"
+#include "NiagaraComponent.h"
 
 // Sets default values
 AMyItem::AMyItem()
@@ -17,6 +18,9 @@ AMyItem::AMyItem()
 
 	Sphere = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere"));
 	Sphere->SetupAttachment(GetRootComponent());
+
+	EmbersEffect = CreateDefaultSubobject<UNiagaraComponent>(TEXT("Embers Effect"));
+	EmbersEffect->SetupAttachment(GetRootComponent());
 
 }
 

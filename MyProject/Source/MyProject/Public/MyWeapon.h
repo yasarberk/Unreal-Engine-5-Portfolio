@@ -17,7 +17,7 @@ class MYPROJECT_API AMyWeapon : public AMyItem
 public:
 	AMyWeapon();
 
-	void Equip(USceneComponent* InParent, FName InSocketName);
+	void Equip(USceneComponent* InParent, FName InSocketName, AActor* NewOwner, APawn* NewInstigator);
 
 	void AttachMeshToSocket(USceneComponent* InParent, const FName& InSocketName);
 
@@ -46,6 +46,9 @@ private:
 	USceneComponent* BoxTraceStart;
 	UPROPERTY(VisibleAnyWhere)
 	USceneComponent* BoxTraceEnd;
+
+	UPROPERTY(EditAnyWhere, category = "Weapon Properties")
+	float Damage = 20.f;
 
 public:
 

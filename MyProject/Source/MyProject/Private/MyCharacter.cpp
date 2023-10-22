@@ -119,11 +119,11 @@ void AMyCharacter::MoveRight(float value)
 
 void AMyCharacter::EKeyPressed()
 {
-	if (OverlappingItem)
+	AMyWeapon* MyWeapon = Cast<AMyWeapon>(OverlappingItem);
+	
+	if (MyWeapon)
 	{
-		AMyWeapon* MyWeapon = Cast<AMyWeapon>(OverlappingItem);
-
-		MyWeapon->Equip(GetMesh(), FName("RightHandSocket"));
+		MyWeapon->Equip(GetMesh(), FName("RightHandSocket"), this, this);
 		CharacterState = ECharacterState::ECS_OneHandedWeapon;
 		OverlappingItem = nullptr;
 		EquippedWeapon = MyWeapon;
