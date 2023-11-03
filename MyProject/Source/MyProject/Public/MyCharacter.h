@@ -3,16 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
+#include "BaseCharacter.h"
 #include "Characters/CharacterTypes.h"
 #include "MyCharacter.generated.h"
 
 class AMyItem;
 class UAnimMontage;
-class AMyWeapon;
 
 UCLASS()
-class MYPROJECT_API AMyCharacter : public ACharacter
+class MYPROJECT_API AMyCharacter : public ABaseCharacter
 {
 	GENERATED_BODY()
 
@@ -29,9 +28,6 @@ public:
 	FORCEINLINE void SetOverlappingItem(AMyItem* Item) { OverlappingItem = Item; }
 	FORCEINLINE ECharacterState GetCharacterState() const { return CharacterState; }
 
-	UFUNCTION(BlueprintCallable)
-	void SetWeaponCollision(ECollisionEnabled::Type CollisionEnabled);
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -40,14 +36,13 @@ protected:
 	void Turn(float value);
 	void MoveRight(float value);
 	void EKeyPressed();
-	void Attack();
+	virtual void Attack() override;
 
 	//Animation Montages
-	void PlayAttackMontage();
+	virtual void PlayAttackMontage() override;
 
-	UFUNCTION(BlueprintCallable)
-	void AttackEnd();
-	bool CanAttack();
+	virtual void AttackEnd() override;
+	virtual bool CanAttack() override;
 	
 	void PlayEquipMontage(const FName& SectionName);
 	bool CanDisarm();
@@ -82,12 +77,6 @@ private:
 	UPROPERTY(VisibleInstanceOnly)
 	AMyItem* OverlappingItem;
 
-	UPROPERTY(VisibleAnyWhere, Category = "Weapon")
-	AMyWeapon* EquippedWeapon;
-
-	//Animation Montages
-	UPROPERTY(EditDefaultsOnly, Category = "Montages")
-	UAnimMontage* AttackMontage;
 	UPROPERTY(EditDefaultsOnly, Category = "Montages")
 	UAnimMontage* EquipMontage;
 };
